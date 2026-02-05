@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxtwvgrc54lss"]
+
+[ext_resource type="Texture2D" uid="uid://cthef404dh0sg" path="res://assets/sprites/background.png" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://c1ajantyxiw38" path="res://Escenas/BIG ASTEROIDE.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://212qtmdgkvr" path="res://Escenas/SMALL ASTEROID.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c3423g3sxt6mn" path="res://Escenas/MEDIUM ASTEROID.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://brepebqidu6o5" path="res://Escenas/Laser.tscn" id="5_lquwl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(573, 318)
+texture = ExtResource("1_0xm2m")
+
+[node name="BIG ASTEROIDE" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(327, 116)
+speed = -150
+
+[node name="Area2D" parent="." instance=ExtResource("3_1bvp3")]
+position = Vector2(91, 565)
+
+[node name="Area2D2" parent="." instance=ExtResource("4_lquwl")]
+position = Vector2(432, 382)
+speed = -200
+
+[node name="Area2D3" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(728, 377)

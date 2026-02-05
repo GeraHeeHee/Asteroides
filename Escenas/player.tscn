@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn7wy27yxxesg"]
+
+[ext_resource type="Texture2D" uid="uid://dmsmt7m077ahw" path="res://assets/sprites/ship.png" id="1_cnkc8"]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(556, 339)
+rotation = -0.7853982
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.7853982
+texture = ExtResource("1_cnkc8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-28.991379, 72.83203, -21.213211, 80.61023, 79.903076, -20.506104, 72.12491, -28.28424, -14.142151, -35.355347, -33.941116, -43.840576, -43.840622, -33.9411, -36.76956, -15.556335, -28.991379, 72.83203, -20.506088, 79.903076)
