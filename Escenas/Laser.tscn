@@ -7,7 +7,7 @@
 radius = 7.983307
 height = 72.02258
 
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" groups=["Laser"]]
 position = Vector2(554, 294)
 script = ExtResource("1_jt7ek")
 
@@ -19,3 +19,5 @@ texture = ExtResource("1_10mc7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5865043
 shape = SubResource("CapsuleShape2D_10mc7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxtwvgrc54lss"]
+[gd_scene load_steps=11 format=3 uid="uid://cxtwvgrc54lss"]
 
 [ext_resource type="Texture2D" uid="uid://cthef404dh0sg" path="res://assets/sprites/background.png" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://c1ajantyxiw38" path="res://Escenas/BIG ASTEROIDE.tscn" id="2_h2yge"]
-[ext_resource type="PackedScene" uid="uid://212qtmdgkvr" path="res://Escenas/SMALL ASTEROID.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://c3423g3sxt6mn" path="res://Escenas/MEDIUM ASTEROID.tscn" id="4_lquwl"]
-[ext_resource type="PackedScene" uid="uid://brepebqidu6o5" path="res://Escenas/Laser.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://c1ajantyxiw38" path="res://Escenas/BIG ASTEROIDE.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c3423g3sxt6mn" path="res://Escenas/MEDIUM ASTEROID.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cn7wy27yxxesg" path="res://Escenas/player.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://212qtmdgkvr" path="res://Escenas/SMALL ASTEROID.tscn" id="6_272bh"]
+[ext_resource type="Script" uid="uid://bv0sr5xuikxkl" path="res://Escenas/asteroid_spawn.gd" id="7_272bh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
+size = Vector2(1161, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(20, 667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(1151, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
+size = Vector2(20, 667)
 
 [node name="Node2D" type="Node2D"]
 
@@ -12,16 +25,54 @@
 position = Vector2(573, 318)
 texture = ExtResource("1_0xm2m")
 
-[node name="BIG ASTEROIDE" parent="." instance=ExtResource("2_h2yge")]
-position = Vector2(327, 116)
-speed = -150
+[node name="Player" parent="." instance=ExtResource("6_7mycd")]
+position = Vector2(948, 380)
 
-[node name="Area2D" parent="." instance=ExtResource("3_1bvp3")]
-position = Vector2(91, 565)
+[node name="Wall" type="Node" parent="."]
 
-[node name="Area2D2" parent="." instance=ExtResource("4_lquwl")]
-position = Vector2(432, 382)
-speed = -200
+[node name="TopWall" type="StaticBody2D" parent="Wall"]
+disable_mode = 2
 
-[node name="Area2D3" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(728, 377)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/TopWall"]
+position = Vector2(570.5, 0)
+shape = SubResource("RectangleShape2D_7mycd")
+
+[node name="RightWall" type="StaticBody2D" parent="Wall"]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/RightWall"]
+position = Vector2(1141, 323.5)
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="LowWall" type="StaticBody2D" parent="Wall"]
+disable_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/LowWall"]
+position = Vector2(575.5, 647)
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="LeftWll" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/LeftWll"]
+position = Vector2(0, 323.5)
+shape = SubResource("RectangleShape2D_kek77")
+
+[node name="AsteroidSpawn" type="Marker2D" parent="."]
+position = Vector2(-103, 322)
+script = ExtResource("7_272bh")
+asteroids = Array[PackedScene]([ExtResource("4_1bvp3"), ExtResource("5_7mycd"), ExtResource("6_272bh")])
+
+[node name="Timer" type="Timer" parent="AsteroidSpawn" groups=["Laser", "Player"]]
+wait_time = 1.069
+autostart = true
+
+[node name="SMALL ASTEROID" parent="." instance=ExtResource("6_272bh")]
+position = Vector2(88, 290)
+
+[node name="MED ASTEROID" parent="." instance=ExtResource("5_7mycd")]
+position = Vector2(247, 145)
+
+[node name="BIG ASTEROIDE" parent="." instance=ExtResource("4_1bvp3")]
+position = Vector2(134, 499)
+
+[connection signal="timeout" from="AsteroidSpawn/Timer" to="AsteroidSpawn" method="_on_timer_timeout"]

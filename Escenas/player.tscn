@@ -1,10 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn7wy27yxxesg"]
+[gd_scene load_steps=4 format=3 uid="uid://cn7wy27yxxesg"]
 
 [ext_resource type="Texture2D" uid="uid://dmsmt7m077ahw" path="res://assets/sprites/ship.png" id="1_cnkc8"]
+[ext_resource type="Script" uid="uid://lhvv8v6e5qm3" path="res://Escenas/player.gd" id="1_i8vih"]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8vih"]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+z_index = 1
 position = Vector2(556, 339)
 rotation = -0.7853982
+script = ExtResource("1_i8vih")
+speed = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -0.7853982
@@ -12,3 +18,12 @@ texture = ExtResource("1_cnkc8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-28.991379, 72.83203, -21.213211, 80.61023, 79.903076, -20.506104, 72.12491, -28.28424, -14.142151, -35.355347, -33.941116, -43.840576, -43.840622, -33.9411, -36.76956, -15.556335, -28.991379, 72.83203, -20.506088, 79.903076)
+
+[node name="DetectionArea" type="Area2D" parent="." groups=["Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(6.3639607, 7.778174)
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_i8vih")
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
